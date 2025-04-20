@@ -26,14 +26,6 @@ const routes: Routes = [
         (m) => m.PlacesListPageModule
       ),
   },
-  {
-    path: 'add-place',
-    loadChildren: () => import('./pages/add-place/add-place.module').then( m => m.AddPlacePageModule)
-  },
-  {
-    path: 'places-list',
-    loadChildren: () => import('./pages/places-list/places-list.module').then( m => m.PlacesListPageModule)
-  },
 ];
 
 @NgModule({
