@@ -7,7 +7,7 @@ import * as L from 'leaflet';
   styleUrls: ['./home.page.scss'],
   standalone: false,
 })
-export class HomePage {
+export class HomePage implements OnInit {
   constructor() {}
 
   map!: L.Map;
