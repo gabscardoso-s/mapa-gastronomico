@@ -13,13 +13,6 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'add-place',
-    loadChildren: () =>
-      import('./pages/add-place/add-place.module').then(
-        (m) => m.AddPlacePageModule
-      ),
-  },
-  {
     path: 'places-list',
     loadChildren: () =>
       import('./pages/places-list/places-list.module').then(

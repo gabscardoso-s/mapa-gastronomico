@@ -1,12 +1,10 @@
 export interface Place {
   id: string;
-  name: string;
-  category: string;
-  rating: number;
-  notes?: string;
-  dateAdd: Date;
-  location: {
-    lat: number;
-    lon: number;
-  };
+  nome: string;
+  categoria: string;
+  nota: number;
+  observacoes?: string;
+  data: string;
+  lat: number;
+  lon: number;
 }
