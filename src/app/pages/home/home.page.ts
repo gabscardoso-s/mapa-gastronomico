@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { ModalController } from '@ionic/angular';
 import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-place-modal.component';
+import { StorageService } from 'src/app/services/storage.service';
+import { Place } from 'src/app/models/place.model';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +12,13 @@ import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-p
   standalone: false,
 })
 export class HomePage implements OnInit {
-  constructor(private modalCtrl: ModalController) {}
-
   map!: L.Map;
   marker!: L.Marker;
+
+  constructor(
+    private modalCtrl: ModalController,
+    private storageService: StorageService
+  ) {}
 
   ngOnInit(): void {
     this.loadMap();
@@ -36,11 +41,21 @@ export class HomePage implements OnInit {
               'Map data ₢ <a href= "https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           }).addTo(this.map);
 
-          // Detectando clique no mapa
+          // Marcador com a posição atual
+          this.marker = L.marker([lat, lon])
+            .addTo(this.map)
+            .bindPopup('Você está aqui!')
+            .openPopup();
+
+          // Carregar locais salvos ao iniciar
+          this.carregarLocaisSalvos();
+
+          // Detectando clique no mapa para adicionar local
           this.map.on('click', async (event: L.LeafletMouseEvent) => {
             const latitude = event.latlng.lat;
             const longitude = event.latlng.lng;
 
+            // Criando o modal
             const modal = await this.modalCtrl.create({
               component: AddPlaceModalComponent,
               componentProps: {
@@ -49,7 +64,6 @@ export class HomePage implements OnInit {
               },
             });
             await modal.present();
-
             const { data, role } = await modal.onWillDismiss();
 
             if (role == 'confirm' && data) {
@@ -59,14 +73,11 @@ export class HomePage implements OnInit {
                   `<strong>${data.nome}</strong><br>${data.categoria}<br>Nota: ${data.nota}`
                 )
                 .openPopup();
+
+              // Salvando o local no Storage
+              await this.storageService.addPlace(data);
             }
           });
-
-          // Marcador com a posição atual
-          this.marker = L.marker([lat, lon])
-            .addTo(this.map)
-            .bindPopup('Você está aqui!')
-            .openPopup();
         },
         (error) => {
           console.error('Erro ao pegar a localização:', error);
@@ -75,5 +86,17 @@ export class HomePage implements OnInit {
     } else {
       console.error('Geolocation não é suportado por esse navegador.');
     }
+  }
+
+  async carregarLocaisSalvos() {
+    const locais = await this.storageService.getPlaces();
+
+    locais.forEach((place: Place) => {
+      L.marker([place.lat, place.lon])
+        .addTo(this.map)
+        .bindPopup(
+          `<strong>${place.nome}</strong><br>${place.categoria}<br>Nota: ${place.nota}`
+        );
+    });
   }
 }

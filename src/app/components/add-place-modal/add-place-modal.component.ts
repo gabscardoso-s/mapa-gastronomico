@@ -27,7 +27,12 @@ export class AddPlaceModalComponent implements OnInit {
 
   ngOnInit() {
     this.place.id = Date.now().toString();
-    this.place.data = new Date().toISOString();
+
+    const hoje = new Date();
+    const dia = hoje.getDate().toString().padStart(2, '0');
+    const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+    const ano = hoje.getFullYear();
+    this.place.data = `${dia}/${mes}/${ano}`;
   }
 
   salvar() {
