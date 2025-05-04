@@ -45,4 +45,17 @@ export class StorageService {
   public async getPlaces() {
     return (await this.get(this.PLACES_KEY)) || [];
   }
+
+  // Métodos com base no ID
+  public async updatePlace(updated: Place) {
+    let places: Place[] = (await this.getPlaces()) || [];
+    places = places.map((p) => (p.id === updated.id ? updated : p));
+    await this.set(this.PLACES_KEY, places);
+  }
+
+  public async removePlace(id: string) {
+    let places: Place[] = await this.getPlaces();
+    places = places.filter((p) => p.id !== id);
+    await this.set(this.PLACES_KEY, places);
+  }
 }
