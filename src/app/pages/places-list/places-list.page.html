@@ -24,19 +24,22 @@
       step="0.5"
       pin="true"
       snaps="true"
+      style="margin-bottom: 12px"
       [pinFormatter]="formatarValor"
       [(ngModel)]="notaMinima"
       (ionChange)="aplicarFiltros()"
-      style="margin-bottom: 12px"
     ></ion-range>
   </ion-item>
 
-  <ion-list *ngFor="let place of lugaresFiltrados; let i = index">
+  <ion-list
+    class="ion-padding"
+    *ngFor="let place of lugaresFiltrados; let i = index"
+  >
     <ion-label>
       <small style="color: grey">Item Nº: {{i+1}}</small>
       <h2>{{place.nome}}</h2>
       <p>Categoria: {{place.categoria}}</p>
-      <p>Nota{{place.nota}}</p>
+      <p>Nota: {{place.nota}}</p>
       <p>Observações: {{place.observacoes}}</p>
       <p>{{place.data}}</p>
     </ion-label>

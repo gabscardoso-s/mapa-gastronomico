@@ -67,7 +67,7 @@ export class PlacesListPage implements OnInit {
 
   async excluirPlace(id: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Confirmar exclusão',
+      header: 'Excluir local',
       message: 'Tem certeza que deseja excluir este lugar?',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
