@@ -20,8 +20,16 @@
 
   <ion-item>
     <ion-label position="stacked">Nota</ion-label>
-    <ion-range min="0" max="5" pin="true" snaps="true" [(ngModel)]="place.nota">
-    </ion-range>
+    <ion-range
+      min="0"
+      max="5"
+      step="0.5"
+      pin="true"
+      snaps="true"
+      [pinFormatter]="formatarValor"
+      [(ngModel)]="place.nota"
+      style="margin-top: 5px; margin-bottom: 12px"
+    ></ion-range>
   </ion-item>
 
   <ion-item>

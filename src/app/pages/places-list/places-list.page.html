@@ -1,12 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Lugares Salvos</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">Voltar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item>
-    <ion-label position="floating">Filtrar por Categoria</ion-label>
+    <ion-label position="stacked">Filtrar por Categoria</ion-label>
     <ion-input
       [(ngModel)]="categoriaFiltro"
       (ionInput)="aplicarFiltros()"
@@ -14,12 +17,17 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>Filtrar por Nota</ion-label>
+    <ion-label position="stacked">Filtrar por Nota</ion-label>
     <ion-range
       min="0"
       max="5"
+      step="0.5"
+      pin="true"
+      snaps="true"
+      [pinFormatter]="formatarValor"
       [(ngModel)]="notaMinima"
       (ionChange)="aplicarFiltros()"
+      style="margin-bottom: 12px"
     ></ion-range>
   </ion-item>
 

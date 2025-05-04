@@ -11,6 +11,10 @@ import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-p
   standalone: false,
 })
 export class PlacesListPage implements OnInit {
+  formatarValor(valor: number) {
+    return valor % 1 === 0 ? valor : valor.toFixed(1);
+  }
+
   lugares: Place[] = [];
   lugaresFiltrados: Place[] = [];
 

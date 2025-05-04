@@ -9,6 +9,10 @@ import { Place } from 'src/app/models/place.model';
   standalone: false,
 })
 export class AddPlaceModalComponent implements OnInit {
+  formatarValor(valor: number) {
+    return valor % 1 === 0 ? valor : valor.toFixed(1);
+  }
+
   @Input() latitude!: number;
   @Input() longitude!: number;
 
