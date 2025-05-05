@@ -13,6 +13,18 @@ export class AddPlaceModalComponent implements OnInit {
     return valor % 1 === 0 ? valor : valor.toFixed(1);
   }
 
+  categorias = [
+    { nome: 'Restaurante', valor: 'restaurante' },
+    { nome: 'Lanchonete', valor: 'lanchonete' },
+    { nome: 'Oriental', valor: 'oriental' },
+    { nome: 'Pizzaria', valor: 'pizzaria' },
+    { nome: 'Cafeteria', valor: 'cafeteria' },
+    { nome: 'Bar', valor: 'bar' },
+    { nome: 'Sorveteria', valor: 'sorveteria' },
+    { nome: 'Padaria', valor: 'padaria' },
+    { nome: 'Outro', valor: 'outro' },
+  ];
+
   @Input() latitude!: number;
   @Input() longitude!: number;
 

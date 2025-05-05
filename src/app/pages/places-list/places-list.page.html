@@ -9,11 +9,21 @@
 
 <ion-content>
   <ion-item>
-    <ion-label position="stacked">Filtrar por Categoria</ion-label>
-    <ion-input
-      [(ngModel)]="categoriaFiltro"
-      (ionInput)="aplicarFiltros()"
-    ></ion-input>
+    <ion-select
+      label="Filtrar por Categoria"
+      label-placement="fixed"
+      multiple="true"
+      interface="popover"
+      placeholder="Selecione as Categorias"
+      [(ngModel)]="categoriasFiltro"
+      (ionChange)="aplicarFiltros()"
+    >
+      <ion-select-option
+        *ngFor="let categoria of categorias"
+        [value]="categoria.valor"
+        >{{categoria.nome}}</ion-select-option
+      >
+    </ion-select>
   </ion-item>
 
   <ion-item>

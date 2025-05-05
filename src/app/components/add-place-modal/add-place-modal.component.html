@@ -14,8 +14,19 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Categoria</ion-label>
-    <ion-input [(ngModel)]="place.categoria"></ion-input>
+    <ion-select
+      label="Categoria"
+      label-placement="fixed"
+      interface="popover"
+      placeholder="Selecione a Categoria"
+      [(ngModel)]="place.categoria"
+    >
+      <ion-select-option
+        *ngFor="let categoria of categorias"
+        [value]="categoria.valor"
+        >{{ categoria.nome }}</ion-select-option
+      >
+    </ion-select>
   </ion-item>
 
   <ion-item>

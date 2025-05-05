@@ -15,11 +15,23 @@ export class PlacesListPage implements OnInit {
     return valor % 1 === 0 ? valor : valor.toFixed(1);
   }
 
+  categorias = [
+    { nome: 'Restaurante', valor: 'restaurante' },
+    { nome: 'Lanchonete', valor: 'lanchonete' },
+    { nome: 'Oriental', valor: 'oriental' },
+    { nome: 'Pizzaria', valor: 'pizzaria' },
+    { nome: 'Cafeteria', valor: 'cafeteria' },
+    { nome: 'Bar', valor: 'bar' },
+    { nome: 'Sorveteria', valor: 'sorveteria' },
+    { nome: 'Padaria', valor: 'padaria' },
+    { nome: 'Outro', valor: 'outro' },
+  ];
+
   lugares: Place[] = [];
   lugaresFiltrados: Place[] = [];
 
   // Filtros inseridos pelo usuário
-  categoriaFiltro: string = '';
+  categoriasFiltro: string[] = [];
   notaMinima: number = 0;
 
   constructor(
@@ -40,10 +52,8 @@ export class PlacesListPage implements OnInit {
   aplicarFiltros() {
     this.lugaresFiltrados = this.lugares.filter((place) => {
       const categoriaValida =
-        !this.categoriaFiltro ||
-        place.categoria
-          .toLowerCase()
-          .includes(this.categoriaFiltro.toLowerCase());
+        this.categoriasFiltro.length === 0 ||
+        this.categoriasFiltro.includes(place.categoria);
       const notaValida = place.nota >= this.notaMinima;
       return categoriaValida && notaValida;
     });
@@ -61,7 +71,7 @@ export class PlacesListPage implements OnInit {
 
     if (role == 'confirm' && data) {
       await this.storageService.updatePlace(data);
-      this.carregarLugares();
+      await this.carregarLugares();
     }
   }
 
@@ -76,7 +86,7 @@ export class PlacesListPage implements OnInit {
           role: 'destructive',
           handler: async () => {
             await this.storageService.removePlace(id);
-            this.carregarLugares;
+            await this.carregarLugares();
           },
         },
       ],
