@@ -67,7 +67,9 @@ export class HomePage implements OnInit {
             const { data, role } = await modal.onWillDismiss();
 
             if (role == 'confirm' && data) {
-              L.marker([data.lat, data.lon])
+              L.marker([data.lat, data.lon], {
+                icon: this.getIconByCategoria(data.categoria),
+              })
                 .addTo(this.map)
                 .bindPopup(
                   `<strong>${data.nome}</strong><br>${data.categoria}<br>Nota: ${data.nota}`
@@ -92,11 +94,53 @@ export class HomePage implements OnInit {
     const locais = await this.storageService.getPlaces();
 
     locais.forEach((place: Place) => {
-      L.marker([place.lat, place.lon])
+      L.marker([place.lat, place.lon], {
+        icon: this.getIconByCategoria(place.categoria),
+      })
         .addTo(this.map)
         .bindPopup(
           `<strong>${place.nome}</strong><br>${place.categoria}<br>Nota: ${place.nota}`
         );
+    });
+  }
+
+  getIconByCategoria(categoria: string = '') {
+    let file = 'location-pin.png';
+
+    switch (categoria.toLowerCase()) {
+      case 'restaurante':
+        file = 'dinner.png';
+        break;
+      case 'lanchonete':
+        file = 'fast-food.png';
+        break;
+      case 'oriental':
+        file = 'sushi.png';
+        break;
+      case 'pizzaria':
+        file = 'pizza.png';
+        break;
+      case 'cafeteria':
+        file = 'coffee-cup.png';
+        break;
+      case 'bar':
+        file = 'beer.png';
+        break;
+      case 'sorveteria':
+        file = 'ice-cream.png';
+        break;
+      case 'padaria':
+        file = 'bread.png';
+        break;
+      case 'outro':
+        file = 'pin.png';
+        break;
+    }
+
+    return L.icon({
+      iconUrl: `assets/icon/${file}`,
+      iconSize: [48, 48],
+      popupAnchor: [0, -32],
     });
   }
 }
