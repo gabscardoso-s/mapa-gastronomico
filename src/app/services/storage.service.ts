@@ -23,7 +23,7 @@ export class StorageService {
     return this._storage?.set(key, value);
   }
 
-  public async get(key: string): Promise<any> {
+  public async get(key: string) {
     return await this._storage?.get(key);
   }
 
@@ -46,7 +46,7 @@ export class StorageService {
     return (await this.get(this.PLACES_KEY)) || [];
   }
 
-  // Métodos com base no ID
+  // Métodos atualizar e remover locais com ID
   public async updatePlace(updated: Place) {
     let places: Place[] = (await this.getPlaces()) || [];
     places = places.map((p) => (p.id === updated.id ? updated : p));
