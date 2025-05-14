@@ -75,7 +75,7 @@ export class PlacesListPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: AddPlaceModalComponent,
       componentProps: {
-        place,
+        placesEdit: place,
       },
     });
     await modal.present();

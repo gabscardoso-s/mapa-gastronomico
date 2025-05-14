@@ -12,6 +12,7 @@ export class AddPlaceModalComponent implements OnInit {
   formatarValor(valor: number) {
     return valor % 1 === 0 ? valor : valor.toFixed(1);
   }
+  @Input() placesEdit!: Place;
 
   categorias = [
     { nome: 'Restaurante', valor: 'restaurante' },
@@ -42,13 +43,25 @@ export class AddPlaceModalComponent implements OnInit {
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {
-    this.place.id = Date.now().toString();
+    if (this.placesEdit) {
+      // Edição place
+      this.place = { ...this.placesEdit };
+    } else {
+      // Novo place
+      this.place.id = Date.now().toString();
+      const hoje = new Date();
+      const dia = hoje.getDate().toString().padStart(2, '0');
+      const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+      const ano = hoje.getFullYear();
+      this.place.data = `${dia}/${mes}/${ano}`;
 
     const hoje = new Date();
     const dia = hoje.getDate().toString().padStart(2, '0');
     const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
     const ano = hoje.getFullYear();
     this.place.data = `${dia}/${mes}/${ano}`;
+  formatarValorPin(valor: number) {
+    return valor % 1 === 0 ? valor : valor.toFixed(1);
   }
 
   salvar() {
