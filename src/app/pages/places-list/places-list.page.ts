@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { Place } from 'src/app/models/place.model';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  MenuController,
+  ModalController,
+} from '@ionic/angular';
 import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-place-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-places-list',
@@ -11,10 +16,6 @@ import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-p
   standalone: false,
 })
 export class PlacesListPage implements OnInit {
-  formatarValor(valor: number) {
-    return valor % 1 === 0 ? valor : valor.toFixed(1);
-  }
-
   categorias = [
     { nome: 'Restaurante', valor: 'restaurante' },
     { nome: 'Lanchonete', valor: 'lanchonete' },
@@ -37,11 +38,22 @@ export class PlacesListPage implements OnInit {
   constructor(
     private storageService: StorageService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router,
+    private menu: MenuController
   ) {}
 
   async ngOnInit() {
     await this.carregarLugares();
+  }
+
+  formatarValor(valor: number) {
+    return valor % 1 === 0 ? valor : valor.toFixed(1);
+  }
+
+  async voltarHome() {
+    await this.menu.close();
+    this.router.navigateByUrl('/');
   }
 
   async carregarLugares() {

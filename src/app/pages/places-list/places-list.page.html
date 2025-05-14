@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Lugares Salvos</ion-title>
     <ion-buttons slot="start">
-      <ion-button routerLink="/home">Voltar</ion-button>
+      <ion-button (click)="voltarHome()">Voltar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -53,11 +53,12 @@
       <p>Observações: {{place.observacoes}}</p>
       <p>{{place.data}}</p>
     </ion-label>
-    <ion-button fill="outline" (click)="editarPlace(place)"
-      ><ion-icon slot="icon-only" name="create-outline"></ion-icon
-    ></ion-button>
-    <ion-button fill="outline" color="danger" (click)="excluirPlace(place.id)"
-      ><ion-icon slot="icon-only" name="trash-outline"></ion-icon
-    ></ion-button>
+
+    <ion-button fill="outline" (click)="editarPlace(place)">
+      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="outline" color="danger" (click)="excluirPlace(place.id)">
+      <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+    </ion-button>
   </ion-list>
 </ion-content>
