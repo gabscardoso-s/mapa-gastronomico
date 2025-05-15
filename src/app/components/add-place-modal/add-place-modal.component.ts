@@ -9,9 +9,8 @@ import { Place } from 'src/app/models/place.model';
   standalone: false,
 })
 export class AddPlaceModalComponent implements OnInit {
-  formatarValor(valor: number) {
-    return valor % 1 === 0 ? valor : valor.toFixed(1);
-  }
+  @Input() latitude!: number;
+  @Input() longitude!: number;
   @Input() placesEdit!: Place;
 
   categorias = [
@@ -25,9 +24,6 @@ export class AddPlaceModalComponent implements OnInit {
     { nome: 'Padaria', valor: 'padaria' },
     { nome: 'Outro', valor: 'outro' },
   ];
-
-  @Input() latitude!: number;
-  @Input() longitude!: number;
 
   place: Place = {
     id: '',
@@ -54,19 +50,16 @@ export class AddPlaceModalComponent implements OnInit {
       const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
       const ano = hoje.getFullYear();
       this.place.data = `${dia}/${mes}/${ano}`;
+      this.place.lat = this.latitude;
+      this.place.lon = this.longitude;
+    }
+  }
 
-    const hoje = new Date();
-    const dia = hoje.getDate().toString().padStart(2, '0');
-    const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
-    const ano = hoje.getFullYear();
-    this.place.data = `${dia}/${mes}/${ano}`;
   formatarValorPin(valor: number) {
     return valor % 1 === 0 ? valor : valor.toFixed(1);
   }
 
   salvar() {
-    this.place.lat = this.latitude;
-    this.place.lon = this.longitude;
     this.modalCtrl.dismiss(this.place, 'confirm');
   }
 
