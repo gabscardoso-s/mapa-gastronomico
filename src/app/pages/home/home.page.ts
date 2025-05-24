@@ -14,6 +14,7 @@ import { Place } from 'src/app/models/place.model';
 export class HomePage implements OnInit {
   map!: L.Map;
   marker!: L.Marker;
+  customMarkers: L.Marker[] = [];
 
   constructor(
     private modalCtrl: ModalController,
@@ -43,11 +44,18 @@ export class HomePage implements OnInit {
 
           // Marcador com a posição atual
           this.marker = L.marker([lat, lon])
+  async ionViewDidEnter() {
+    await this.carregarLocaisSalvos();
+  }
+
+          const marker = L.marker([data.lat, data.lon], {
             .addTo(this.map)
             .bindPopup('Você está aqui!')
             .openPopup();
 
-          // Carregar locais salvos ao iniciar
+          // Salvando o local no Storage
+          await this.storageService.addPlace(data);
+          this.customMarkers.push(marker);
           this.carregarLocaisSalvos();
 
           // Detectando clique no mapa para adicionar local
@@ -91,16 +99,23 @@ export class HomePage implements OnInit {
   }
 
   async carregarLocaisSalvos() {
+    // Remover marcadores antigos
+    this.customMarkers.forEach((marker) => this.map.removeLayer(marker));
+    this.customMarkers = [];
+
+    // Adicionar marcadores
     const locais = await this.storageService.getPlaces();
 
     locais.forEach((place: Place) => {
-      L.marker([place.lat, place.lon], {
+      const marker = L.marker([place.lat, place.lon], {
         icon: this.getIconByCategoria(place.categoria),
       })
         .addTo(this.map)
         .bindPopup(
           `<strong>${place.nome}</strong><br>${place.categoria}<br>Nota: ${place.nota}`
         );
+
+      this.customMarkers.push(marker);
     });
   }
 
