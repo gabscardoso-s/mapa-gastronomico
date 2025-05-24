@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { ModalController, Platform } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-place-modal.component';
 import { StorageService } from 'src/app/services/storage.service';
 import { Place } from 'src/app/models/place.model';
@@ -19,12 +19,10 @@ export class HomePage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private storageService: StorageService,
-    private platform: Platform
+    private storageService: StorageService
   ) {}
 
-  async ngOnInit() {
-    // await this.platform.ready();
+  ngOnInit() {
     this.loadMap();
   }
 
