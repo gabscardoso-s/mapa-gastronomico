@@ -75,6 +75,13 @@ export class PlacesListPage implements OnInit {
     });
   }
 
+  limparFiltros() {
+    this.nomeFiltro = '';
+    this.categoriasFiltro = [];
+    this.notaMinima = 0;
+    this.aplicarFiltros();
+  }
+
   async editarPlace(place: Place) {
     const modal = await this.modalCtrl.create({
       component: AddPlaceModalComponent,

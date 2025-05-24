@@ -8,6 +8,19 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>
+      <h2>
+        <ion-icon name="filter"></ion-icon>
+        Filtros
+      </h2>
+    </ion-label>
+    <ion-button slot="end" expand="block" (click)="limparFiltros()">
+      <ion-icon slot="start" name="close-circle"></ion-icon>
+      Limpar Filtros
+    </ion-button>
+  </ion-item>
+
   <ion-searchbar
     placeholder="Por Nome"
     [(ngModel)]="nomeFiltro"
