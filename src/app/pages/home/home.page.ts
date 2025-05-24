@@ -142,7 +142,7 @@ export class HomePage implements OnInit {
   }
 
   getIconByCategoria(categoria: string = '') {
-    let file = 'location-pin.png';
+    let file = 'pin.png';
 
     switch (categoria.toLowerCase()) {
       case 'restaurante':
