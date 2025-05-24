@@ -8,6 +8,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+    placeholder="Por Nome"
+    [(ngModel)]="nomeFiltro"
+    (ionInput)="aplicarFiltros()"
+    debounce="200"
+  ></ion-searchbar>
+
   <ion-item>
     <ion-select
       label="Por Categoria"

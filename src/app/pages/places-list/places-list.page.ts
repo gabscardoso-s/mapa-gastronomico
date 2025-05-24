@@ -32,6 +32,7 @@ export class PlacesListPage implements OnInit {
   lugaresFiltrados: Place[] = [];
 
   // Filtros inseridos pelo usuário
+  nomeFiltro: string = '';
   categoriasFiltro: string[] = [];
   notaMinima: number = 0;
 
@@ -62,12 +63,15 @@ export class PlacesListPage implements OnInit {
   }
 
   aplicarFiltros() {
+    const nome = this.nomeFiltro.toLowerCase();
+
     this.lugaresFiltrados = this.lugares.filter((place) => {
+      const nomeValido = place.nome.toLowerCase().includes(nome);
       const categoriaValida =
         this.categoriasFiltro.length === 0 ||
         this.categoriasFiltro.includes(place.categoria);
       const notaValida = place.nota >= this.notaMinima;
-      return categoriaValida && notaValida;
+      return nomeValido && categoriaValida && notaValida;
     });
   }
 
