@@ -1,7 +1,20 @@
+<div class="banner" align="center">
+    <img src="./src/assets/logo.png" alt="mapa-gastronomico logo" style="width: 400px; height: 130px; object-fit: cover;">
+</div><br>
+
 # Mapa Gastronômico
 
 App mobile desenvolvido com **Ionic + Angular**, que permite registrar e avaliar locais gastronômicos (restaurante, bar, café etc.) em um mapa interativo, funcionando como um diário pessoal offline. <br>
 Projeto acadêmico simples apresentado para avaliação da matéria de Desenolvimento Mobile da faculdade, focado em aplicar conceitos estudados sobre mapas interativos, geolocalização e armazenamento local.
+
+## Screenshots
+
+<div align="center">
+    <img alt="home screen" src="./src/assets/screenshots/home-screen.png" width="200px">
+    <img alt="modal screen" src="./src/assets/screenshots/modal-screen.png" width="200px">
+    <img alt="home screen with markers" src="./src/assets/screenshots/home-screen-markers.png" width="200px">
+    <img alt="places list screen" src="./src/assets/screenshots/places-list-screen.png" width="200px">
+</div>
 
 ## Funcionalidades
 
@@ -44,6 +57,8 @@ npm install -g cordova
 ```
 
 ### Primeiros passos
+
+Clonar este repositório
 
 ```bash
 git clone https://github.com/gabscardoso-s/mapa-gastronomico mapa-gastronomico
