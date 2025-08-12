@@ -1,8 +1,7 @@
-ion-title {
-  text-align: center;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
+ion-img {
+  width: 150px;
+  height: 40px;
+  object-fit: cover;
+  transform: translateX(-20px);
+  margin: auto;
 }
