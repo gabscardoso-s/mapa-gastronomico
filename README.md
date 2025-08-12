@@ -1,5 +1,5 @@
-<div class="banner" align="center">
-    <img src="./src/assets/logo.png" alt="mapa-gastronomico logo" style="width: 400px; height: 130px; object-fit: cover;">
+<div align="center">
+    <img src="./src/assets/logo.png" alt="mapa-gastronomico logo">
 </div><br>
 
 # Mapa Gastronômico
@@ -26,6 +26,7 @@ Projeto acadêmico simples apresentado para avaliação da matéria de Desenolvi
 
 ## Tecnologias
 
+- TypeScript
 - Ionic Framework (Angular)
 - Capacitor (Geolocation)
 - Ionic Storage (persistência local)
@@ -104,4 +105,4 @@ ionic capacitor run ios
 
 ## Licença
 
-Sob Licença MIT, leia o texto completo aqui: [LICENSE MIT](https://github.com/gabscardoso-s/mapa-gastronomico/blob/main/LICENSE)
+Sob Licença [MIT](https://github.com/gabscardoso-s/mapa-gastronomico/blob/main/LICENSE)
