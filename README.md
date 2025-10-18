@@ -4,7 +4,7 @@
 
 # Mapa Gastronômico
 
-App mobile desenvolvido com **Ionic + Angular**, que permite registrar e avaliar locais gastronômicos (restaurante, bar, café etc.) em um mapa interativo, funcionando como um diário pessoal offline. <br>
+App mobile desenvolvido com **Ionic + Angular**, que permite registrar e avaliar locais gastronômicos (restaurante, bar, café etc.) em um mapa interativo, funcionando como um diário pessoal. <br>
 Projeto acadêmico simples apresentado para avaliação da matéria de Desenolvimento Mobile da faculdade, focado em aplicar conceitos estudados sobre mapas interativos, geolocalização, recursos nativos e armazenamento online e local.
 
 ## Screenshots
