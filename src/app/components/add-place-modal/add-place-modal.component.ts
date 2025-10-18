@@ -49,7 +49,7 @@ export class AddPlaceModalComponent implements OnInit {
       const dia = hoje.getDate().toString().padStart(2, '0');
       const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
       const ano = hoje.getFullYear();
-      this.place.data = `${dia}/${mes}/${ano}`;
+      this.place.data = `${ano}-${mes}-${dia}`;
       this.place.lat = this.latitude;
       this.place.lon = this.longitude;
     }
