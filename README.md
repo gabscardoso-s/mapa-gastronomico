@@ -11,7 +11,7 @@ Projeto acadêmico simples apresentado para avaliação da matéria de Desenolvi
 
 <div align="center">
     <img alt="home screen" src="./src/assets/screenshots/home-screen.png" width="200px">
-    <img alt="modal screen" src="./src/assets/screenshots/modal-screen.png" width="200px">
+    <img alt="modal screen" src="./src/assets/screenshots/modal-screen2.png" width="200px">
     <img alt="home screen with markers" src="./src/assets/screenshots/home-screen-markers.png" width="200px">
     <img alt="places list screen" src="./src/assets/screenshots/places-list-screen.png" width="200px">
 </div>
