@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { ModalController } from '@ionic/angular';
 import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-place-modal.component';
-import { StorageService } from 'src/app/services/storage.service';
 import { Place } from 'src/app/models/place.model';
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core';
+import { PlacesFacadeService } from 'src/app/services/places-facade.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private storageService: StorageService
+    private placesFadeService: PlacesFacadeService
   ) {}
 
   ngOnInit() {
@@ -108,9 +108,16 @@ export class HomePage implements OnInit {
             .openPopup();
 
           // Salvando o local no Storage
-          await this.storageService.addPlace(data);
-          this.customMarkers.push(marker);
-          this.carregarLocaisSalvos();
+          this.placesFadeService.addPlace(data).subscribe({
+            next: () => {
+              console.log('Local salvo com sucesso!');
+              this.customMarkers.push(marker);
+              this.carregarLocaisSalvos();
+            },
+            error: (err) => {
+              console.error('Erro ao salvar o local:', err);
+            },
+          });
         }
       });
     } catch (erro) {
@@ -123,19 +130,18 @@ export class HomePage implements OnInit {
     this.customMarkers.forEach((marker) => this.map.removeLayer(marker));
     this.customMarkers = [];
 
-    // Adicionar marcadores
-    const locais = await this.storageService.getPlaces();
+    this.placesFadeService.getPlaces().subscribe((locais) => {
+      locais.forEach((place: Place) => {
+        const marker = L.marker([place.lat, place.lon], {
+          icon: this.getIconByCategoria(place.categoria),
+        })
+          .addTo(this.map)
+          .bindPopup(
+            `<strong>${place.nome}</strong><br>${place.categoria}<br>Nota: ${place.nota}`
+          );
 
-    locais.forEach((place: Place) => {
-      const marker = L.marker([place.lat, place.lon], {
-        icon: this.getIconByCategoria(place.categoria),
-      })
-        .addTo(this.map)
-        .bindPopup(
-          `<strong>${place.nome}</strong><br>${place.categoria}<br>Nota: ${place.nota}`
-        );
-
-      this.customMarkers.push(marker);
+        this.customMarkers.push(marker);
+      });
     });
   }
 

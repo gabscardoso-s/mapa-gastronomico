@@ -71,7 +71,7 @@
       <p>Categoria: {{place.categoria}}</p>
       <p>Nota: {{place.nota}}</p>
       <p>Observações: {{place.observacoes}}</p>
-      <p>{{place.data}}</p>
+      <p>{{place.data | date:'dd/MM/yyyy'}}</p>
     </ion-label>
 
     <ion-button fill="outline" (click)="editarPlace(place)">

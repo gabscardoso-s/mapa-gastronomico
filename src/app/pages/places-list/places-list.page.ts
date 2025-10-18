@@ -8,6 +8,7 @@ import {
 } from '@ionic/angular';
 import { AddPlaceModalComponent } from 'src/app/components/add-place-modal/add-place-modal.component';
 import { Router } from '@angular/router';
+import { PlacesFacadeService } from 'src/app/services/places-facade.service';
 
 @Component({
   selector: 'app-places-list',
@@ -37,7 +38,8 @@ export class PlacesListPage implements OnInit {
   notaMinima: number = 0;
 
   constructor(
-    private storageService: StorageService,
+    // private storageService: StorageService,
+    private placesFacadeService: PlacesFacadeService,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
     private router: Router,
@@ -58,8 +60,11 @@ export class PlacesListPage implements OnInit {
   }
 
   async carregarLugares() {
-    this.lugares = await this.storageService.getPlaces();
-    this.aplicarFiltros();
+    // this.lugares = await this.placesFacadeService.getPlaces();
+    this.placesFacadeService.getPlaces().subscribe((lugares) => {
+      this.lugares = lugares;
+      this.aplicarFiltros();
+    });
   }
 
   aplicarFiltros() {
@@ -93,8 +98,11 @@ export class PlacesListPage implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role == 'confirm' && data) {
-      await this.storageService.updatePlace(data);
-      await this.carregarLugares();
+      this.placesFacadeService.updatePlace(data).subscribe({
+        next: () => {
+          this.carregarLugares();
+        },
+      });
     }
   }
 
@@ -108,8 +116,14 @@ export class PlacesListPage implements OnInit {
           text: 'Excluir',
           role: 'destructive',
           handler: async () => {
-            await this.storageService.removePlace(id);
-            await this.carregarLugares();
+            this.placesFacadeService.removePlace(id).subscribe({
+              next: () => {
+                this.carregarLugares();
+              },
+              error: (err) => {
+                console.log('Erro ao excluri local:', err);
+              },
+            });
           },
         },
       ],
